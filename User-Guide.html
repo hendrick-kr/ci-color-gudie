@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CI Color Swatch Generator - User Guide</title>
+    <style>
+        :root {
+            --primary-color: #000000;
+            --bg-color: #ffffff;
+            --card-bg: #ffffff;
+            --text-main: #000000;
+            --text-secondary: #333333;
+            --border-color: #000000;
+            --accent-bg: #f4f4f4;
+            --code-bg: #f4f4f4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            /* Increased width */
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .intro {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid var(--primary-color);
+            transition: all 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-link:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* Sections */
+        section {
+            background-color: var(--card-bg);
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 4px solid var(--primary-color);
+            display: inline-block;
+            font-weight: 800;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        ol,
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        /* Styling Components */
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.5rem;
+            font-family: "Menlo", "Monaco", "Courier New", monospace;
+            font-size: 0.95em;
+            color: var(--text-main);
+            border: 1px solid #ddd;
+        }
+
+        .image-container {
+            margin: 1.5rem 0;
+            border: 1px solid #eee;
+            padding: 1rem;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .image-container img {
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .img-wide {
+            max-width: 80%;
+        }
+
+        .img-narrow {
+            max-width: 40%;
+        }
+
+        .tip {
+            background-color: var(--accent-bg);
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 2rem;
+            border: 2px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: #f9f9f9;
+        }
+
+        /* List Styling */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list>li {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .feature-list>li:hover {
+            transform: translateX(5px);
+            border-color: #000;
+        }
+
+        .feature-list ul {
+            margin-top: 1rem;
+            margin-bottom: 0;
+            padding-left: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .feature-list ul li {
+            border: none;
+            padding: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--border-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .gallery-grid .gallery-row-title {
+            grid-column: 1 / -1;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.25rem;
+            color: var(--text-secondary);
+        }
+
+        /* Mixed Grid for Outside Examples */
+        .gallery-mixed {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .gallery-stacked-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .gallery-mixed img,
+        .gallery-stacked-col img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            object-fit: contain;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            section {
+                padding: 2rem 0;
+            }
+
+            .btn-link {
+                width: 100%;
+                text-align: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-mixed {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>CI Color Swatch Generator 가이드</h1>
+            <p class="intro">
+                🎨 <strong>CI Color</strong>는 브랜드 색상을 쉽게 관리하고, 다양한 형식(HEX, RGB, CMYK)의 정보가 담긴 색상 견본(Swatch) 이미지를 다운로드할 수
+                있는 도구입니다.
+            </p>
+            <a href="https://ci-color.vercel.app" target="_blank" class="btn-link">👉 바로 사용하기</a>
+        </header>
+
+        <section id="add-color">
+            <h2>1. 색상 추가하기</h2>
+            <p>왼쪽 패널에서 두 가지 방식으로 색상을 추가할 수 있습니다.</p>
+
+            <h3>방법 1: HEX 코드 직접 입력</h3>
+            <ol>
+                <li><strong>HEX INPUT</strong> 탭을 선택합니다.</li>
+                <li>입력창에 <code>#FF5733</code> 같은 HEX 코드를 입력합니다.</li>
+                <li><strong>ADD COLOR</strong> 버튼을 클릭하면 팔레트에 색상이 추가됩니다.</li>
+            </ol>
+            <div class="image-container">
+                <img src="images/hex-input.png" alt="HEX Input Method Example" class="img-narrow">
+            </div>
+
+            <h3>방법 2: 색상 피커 사용</h3>
+            <ol>
+                <li><strong>PALETTE</strong> 탭을 선택합니다.</li>
+                <li>원형 컬러 피커에서 원하는 색조(Hue)와 채도(Saturation)를 선택합니다.</li>
+                <li>아래 <strong>BRIGHTNESS</strong> 슬라이더로 밝기를 조절합니다.</li>
+                <li><strong>ADD SELECTION</strong> 버튼을 클릭합니다.</li>
+            </ol>
+            <div class="image-container">
+                <img src="images/color-picker.png" alt="Color Picker Method Example" class="img-narrow">
+            </div>
+
+            <div class="tip">
+                💡 <strong>팁</strong>: RGB 또는 CMYK 슬라이더를 직접 조절하여 더 정밀하게 색상을 만들 수도 있습니다.
+            </div>
+        </section>
+
+        <section id="manage-palette">
+            <h2>2. 팔레트 관리하기</h2>
+            <p>추가된 색상은 오른쪽 <strong>MY PALETTE</strong> 영역에 카드로 표시됩니다.</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>동작</th>
+                            <th>방법</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>선택/해제</strong></td>
+                            <td>색상 카드를 클릭</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HEX 복사</strong></td>
+                            <td>카드 위에 마우스를 올리고 복사 아이콘 클릭</td>
+                        </tr>
+                        <tr>
+                            <td><strong>개별 삭제</strong></td>
+                            <td>휴지통 아이콘 클릭</td>
+                        </tr>
+                        <tr>
+                            <td><strong>전체 삭제</strong></td>
+                            <td>상단 <code>CLEAR</code> 버튼 클릭</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="image-container">
+                <img src="images/manage-palette.png" alt="Palette Management Example" class="img-wide">
+            </div>
+
+            <div class="tip" style="background-color: #fffbeb; border-color: #f59e0b;">
+                ✨ <strong>자동 저장</strong>: 팔레트는 브라우저에 30일간 자동 저장되므로, 창을 닫았다가 다시 열어도 그대로 유지됩니다.
+            </div>
+        </section>
+
+        <section id="export-config">
+            <h2>3. 이미지 내보내기 설정</h2>
+            <p>이미지를 다운로드하기 전, 왼쪽 하단의 <strong>EXPORT CONFIG</strong>에서 견본 이미지의 스타일을 설정하세요.</p>
+
+            <div class="image-container">
+                <img src="images/export-config.png" alt="Export Config Menu" class="img-narrow">
+            </div>
+
+            <h3>설정 옵션</h3>
+            <ul class="feature-list">
+                <li>
+                    <strong>OUTPUT RESOLUTION</strong>: 이미지 크기
+                    <ul>
+                        <li><code>256 x 256</code> — 웹/SNS용</li>
+                        <li><code>512 x 512</code> — 일반 용도</li>
+                        <li><code>1024 x 1024</code> — 고해상도</li>
+                        <li><code>2048 x 2048</code> — 인쇄용</li>
+                    </ul>
+                </li>
+                <li><strong>TEXT COLOR</strong>: 텍스트 색상 (<code>AUTO</code>는 배경색에 맞게 자동 조절)</li>
+                <li>
+                    <strong>TEXT POSITION</strong>: 텍스트 위치 (내부 상단/중앙/하단, 외부 등)
+
+                    <div class="gallery-grid">
+                        <div class="gallery-row-title">INSIDE (내부)</div>
+                        <img src="images/text-inside-1.png" alt="Text Inside 1">
+                        <img src="images/text-inside-2.png" alt="Text Inside 2">
+                        <img src="images/text-inside-3.png" alt="Text Inside 3">
+                        <img src="images/text-inside-4.png" alt="Text Inside 4">
+                    </div>
+
+                    <div class="gallery-row-title" style="margin-top: 2rem;">OUTSIDE (외부)</div>
+                    <div class="gallery-mixed">
+                        <!-- Col 1: Top (Large) -->
+                        <img src="images/text-outside-1.png" alt="Text Outside Top">
+
+                        <!-- Col 2: Bottom (Large) -->
+                        <img src="images/text-outside-4.png" alt="Text Outside Right">
+
+
+                        <!-- Col 3: Left & Right (Stacked) -->
+                        <div class="gallery-stacked-col">
+                            <img src="images/text-outside-3.png" alt="Text Outside Left">
+                            <img src="images/text-outside-2.png" alt="Text Outside Bottom">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <strong>INCLUDE VALUES</strong>: 이미지에 표시할 정보
+                    <ul>
+                        <li>✅ HEX CODE — <code>#FF5733</code></li>
+                        <li>✅ RGB VALUE — <code>RGB: 255, 87, 51</code></li>
+                        <li>✅ CMYK VALUE — <code>CMYK: 0, 66, 80, 0</code></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section id="download">
+            <h2>4. 이미지 다운로드</h2>
+
+            <h3>개별 다운로드</h3>
+            <p>색상 카드 위에 마우스를 올리고 <strong>다운로드 아이콘</strong>을 클릭하면 해당 색상의 PNG 이미지가 저장됩니다.</p>
+
+            <h3>여러 색상 일괄 다운로드</h3>
+            <ol>
+                <li>다운로드할 색상 카드들을 <strong>클릭하여 선택</strong>합니다 (체크 표시가 나타남).</li>
+                <li>상단의 <strong>DOWNLOAD SELECTED</strong> 버튼을 클릭합니다.</li>
+                <li>선택한 모든 색상이 순차적으로 다운로드됩니다.</li>
+            </ol>
+        </section>
+
+        <section id="use-cases">
+            <h2>💡 활용</h2>
+            <ul class="feature-list">
+                <li>🎨 <strong>브랜드 가이드라인 문서</strong> 제작 시 색상 견본 이미지로 활용</li>
+                <li>📊 <strong>PPT/기획서</strong>에 정확한 색상 코드와 함께 삽입</li>
+                <li>🖨️ <strong>인쇄물 제작</strong> 시 CMYK 값 확인 및 전달</li>
+                <li>💻 <strong>개발자 협업</strong> 시 정확한 HEX/RGB 값 공유</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>문의 또는 피드백이 있으시면 언제든 알려주세요! 🙌</p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
